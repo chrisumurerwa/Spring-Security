@@ -16,19 +16,11 @@ public class SecurityApp {
 
     @GetMapping("/")
     public String home(HttpSession session) {
-        return """
-                <h1>Welcome!</h1>
-                <p>This is the public home page.</p>
-                <a href='/secure'>Go to Secure Page</a>
-                """;
+        return "This is the public home page.";
     }
 
-    @GetMapping("/secure")
-    public String secure(HttpSession session) {
-        return """
-                <h1>Protected Page</h1>
-                <p>You are logged in successfully.</p>
-                <a href='/logout'>Logout</a>
-                """;
+    @GetMapping("/user")
+    public String user(HttpSession session) {
+        return "You are logged in successfully.";
     }
 }

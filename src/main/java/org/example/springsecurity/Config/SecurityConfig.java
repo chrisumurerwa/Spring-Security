@@ -12,28 +12,27 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()  // Only login page is public
-                        .anyRequest().authenticated()  // Everything else requires login
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/", true)  // Redirect to home after login
-                        .permitAll()
-                );
-
-        return http.build();
-    }
-
-    @Bean
     public InMemoryUserDetailsManager users() {
-        UserDetails user = User.withUsername("user")
-                .password("{noop}12345")
+        UserDetails user = User.withUsername("Umurerwa")
+                .password("{noop}chris2020")
                 .roles("USER")
                 .build();
 
         return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/user").authenticated()
+                )
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                );
+
+        return http.build();
     }
 }
