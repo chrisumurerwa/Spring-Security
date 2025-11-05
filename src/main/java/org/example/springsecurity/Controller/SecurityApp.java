@@ -1,26 +1,22 @@
 package org.example.springsecurity.Controller;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SpringBootApplication
 @RestController
 public class SecurityApp {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SecurityApp.class, args);
-    }
-
     @GetMapping("/")
-    public String home(HttpSession session) {
-        return "This is the public home page.";
+    public String home() {
+        return "This is the public home page. Use POST /auth/login to get your JWT token.";
     }
 
     @GetMapping("/user")
-    public String user(HttpSession session) {
-        return "You are logged in successfully.";
+    public String user() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return "Hello " + authentication.getName() + "! You are logged in successfully with JWT.";
     }
 }
