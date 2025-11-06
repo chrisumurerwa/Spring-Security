@@ -45,7 +45,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/auth/**").permitAll()  // ← Nhinduye "/auth/login" → "/auth/**"
+                        .requestMatchers("/", "/auth/**").permitAll()  //
                         .requestMatchers("/user").authenticated()
                         .anyRequest().authenticated()
                 )
